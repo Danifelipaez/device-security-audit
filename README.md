@@ -148,13 +148,26 @@ evals/                   3 read-only test cases (claude plugin eval format)
 
 ## Evals
 
-`evals/` holds three read-only cases (a full audit in Spanish, update eligibility, and LAN exposure in English) with machine-independent graders. Run them with:
+`evals/` holds three read-only cases (a full audit in Spanish, update eligibility, and LAN exposure in English) with machine-independent graders, in the [`claude plugin eval`](https://code.claude.com/docs) case format.
 
-```bash
-claude plugin eval .
-```
+> **Windows note:** `claude plugin eval` refuses to grant PowerShell/Bash without an OS sandbox, and Windows has none yet, so the suite can't run there unattended. Benchmarks below were run with the [skill-creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator) method instead: one agent with the skill and one without, per case, graded against the same assertions.
 
-In the author's iteration-1 benchmark, assertions passed 100% of the time with the skill and 94% without it. The difference was the 24-hour rule: without the skill, the agent used the vendor's release date.
+**v2.0.0 benchmark** (Opus 5.5, Windows 10 22H2, 1 run per case and configuration, 21 assertions):
+
+| | With skill | Without skill |
+|---|---|---|
+| Assertions passed | **20 / 21 (96%)** | 19 / 21 (92%) |
+| Mean time per task | 443 s | 299 s |
+| Mean tokens per task | 137k | 102k |
+
+The assertions check whether something was covered at all, and a strong model covers the obvious things without help. The full audit is where the two differ:
+- **Download trust.** With the skill, every download client is probed. That run found a bundled Python (Azure CLI) that still trusts the compromised eMudhra CA. The baseline didn't check download trust at all.
+- **Fix commands.** With the skill, every pending fix comes with an elevated PowerShell command. The baseline gave prose instructions.
+- **Depth.** The skill run also found a leftover service that any user can start and that points to a missing binary in a writable folder, an immediate path to SYSTEM. It checked driver hashes against LOLDrivers and listed the Defender controls (Network Protection, ASR rules, vulnerable driver blocklist) that are not enabled.
+
+The baseline made one wrong claim, which the skill run avoided: it read an account with no password as "password changed today".
+
+The cost is about 45% more time and 35% more tokens.
 
 ## Limitations
 
