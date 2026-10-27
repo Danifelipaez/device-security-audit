@@ -1,0 +1,22 @@
+{
+  "name": "device-security-audit",
+  "description": "Audit and harden a Windows PC: attack-surface inventory, exploited-in-the-wild research, download trust checks against stolen/compromised certificates, user-approved updates (installers first, 24h rule), and a re-audit report.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Daniel Paez"
+  },
+  "homepage": "https://github.com/Danifelipaez/device-security-audit",
+  "repository": "https://github.com/Danifelipaez/device-security-audit",
+  "license": "MIT",
+  "keywords": [
+    "security",
+    "hardening",
+    "windows",
+    "audit",
+    "winget",
+    "patching",
+    "supply-chain",
+    "certificates",
+    "byovd"
+  ]
+}

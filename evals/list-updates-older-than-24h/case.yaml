@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: list-updates-older-than-24h
+expected_outcome: |
+  A list of pending software updates on the machine, each marked eligible or not under the 24-hour rule with its age, without installing anything.

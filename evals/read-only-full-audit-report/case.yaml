@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: read-only-full-audit-report
+expected_outcome: |
+  A read-only audit of the local Windows machine: inventory of listening services/ports and installed software, web research on known exploitation, and a written report ranking risks with exact admin commands for the owner. Nothing is installed or reconfigured.

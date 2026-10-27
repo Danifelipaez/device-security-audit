@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: lan-exposure-check-english
+expected_outcome: |
+  Identifies services listening on non-loopback addresses, judges which are unnecessary or risky (e.g. a database or vendor helper bound to all interfaces), and gives fix commands for the owner without changing anything.
