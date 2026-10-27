@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img alt="Version" src="https://img.shields.io/badge/version-2.0.0-blue">
+  <img alt="Version" src="https://img.shields.io/badge/version-2.0.1-blue">
   <img alt="Platform" src="https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D6">
   <img alt="Claude Code" src="https://img.shields.io/badge/Claude%20Code-plugin-D97757">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-green">

@@ -7,9 +7,11 @@ param([int]$MinHours = 24)
 $ErrorActionPreference = 'SilentlyContinue'
 [Console]::OutputEncoding = [Text.Encoding]::UTF8
 
-$lines = winget upgrade --include-unknown --accept-source-agreements 2>$null | ForEach-Object { $_ -replace '^.*\r', '' }
+# Read-only: never accept source agreements on the user's behalf. If they were never accepted,
+# winget refuses non-interactively and we say so instead of agreeing for them.
+$lines = winget upgrade --include-unknown --disable-interactivity 2>$null | ForEach-Object { $_ -replace '^.*\r', '' }
 $sep = ($lines | Select-String -Pattern '^-{10,}$' | Select -First 1).LineNumber
-if (-not $sep) { Write-Error 'Could not parse winget output'; exit 1 }
+if (-not $sep) { Write-Error "Could not parse winget output. If winget's source agreements were never accepted, ask the user to run 'winget upgrade' once themselves."; exit 1 }
 $header = $lines[$sep - 2]
 # Column starts come from the header (localized names, fixed order: Name, Id, Version, Available, Source)
 $starts = [regex]::Matches($header, '\S+') | ForEach-Object Index

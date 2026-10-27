@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1 — 2026-10-27
+
+- `update-age.ps1` no longer passes `--accept-source-agreements` to winget. Accepting agreements is the user's decision, so in the v2.0.0 benchmark agents skipped the script and redid its logic by hand. It now runs with `--disable-interactivity` and stops with a clear message if the agreements were never accepted.
+
 ## 2.0.0 — 2026-10-26
 
 - **Installers first.** Updates now run in this order: Windows CA lists, winget, then package managers and their trust stores (pip, certifi, uv, Node, Git, PowerShell, gh), and only then apps.
